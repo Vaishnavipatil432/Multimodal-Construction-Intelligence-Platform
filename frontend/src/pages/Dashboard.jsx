@@ -1,13 +1,14 @@
+
 import { useEffect, useState } from "react";
 import { api } from "../api";
 
 const statCards = [
-  { label: "Site Safety Assessments", value: "--", icon: "\u26A1" },
-  { label: "Crack Analyses", value: "--", icon: "\uD83E\uDEAA" },
-  { label: "Project Plans", value: "--", icon: "\uD83D\uDCCB" },
-  { label: "Property Valuations", value: "--", icon: "\uD83D\uDCB0" },
-  { label: "Knowledge Articles", value: "--", icon: "\uD83D\uDCDA" },
-  { label: "Chat Sessions", value: "--", icon: "\uD83D\uDCAC" },
+  { label: "Site Safety Assessments", value: "--", icon: "⚡" },
+  { label: "Crack Analyses", value: "--", icon: "🧱" },
+  { label: "Project Plans", value: "--", icon: "📋" },
+  { label: "Property Valuations", value: "--", icon: "💰" },
+  { label: "Knowledge Articles", value: "--", icon: "📚" },
+  { label: "Chat Sessions", value: "--", icon: "💬" },
 ];
 
 export default function Dashboard() {
@@ -29,14 +30,17 @@ export default function Dashboard() {
 
       {error && (
         <div className="alert alert-error">
-          Backend unreachable: {error}. Start the FastAPI backend to use the platform.
+          Backend unreachable: {error}. Check the backend URL and CORS settings.
         </div>
       )}
 
       <div className="summary-grid">
         {statCards.map((card) => (
           <div key={card.label} className="summary-card">
-            <div className="label">{card.label}</div>
+            <div className="label">
+              <span>{card.icon} </span>
+              {card.label}
+            </div>
             <div className="value">{card.value}</div>
           </div>
         ))}
@@ -45,49 +49,49 @@ export default function Dashboard() {
       <div className="grid-3">
         <CardWithAction
           title="Site Safety Monitoring"
-          icon="\u26A1"
+          icon="⚡"
           description="Upload a site photograph and optional observation log to receive a structured safety hazard report."
           to="safety"
         />
         <CardWithAction
           title="Structural Crack Detection"
-          icon="\uD83E\uDEAA"
+          icon="🧱"
           description="Analyse crack photographs and receive a preliminary crack classification and severity report."
           to="crack"
         />
         <CardWithAction
           title="Project Planner"
-          icon="\uD83D\uDCCB"
+          icon="📋"
           description="Generate a project plan with material requirements, INR cost estimate, and schedule."
           to="planning"
         />
         <CardWithAction
           title="Real Estate Valuation"
-          icon="\uD83D\uDCB0"
+          icon="💰"
           description="Indicative property valuation in Indian Rupees with rental yield and ROI scenarios."
           to="valuation"
         />
         <CardWithAction
           title="Daily Site Assistant"
-          icon="\uD83D\uDCC5"
+          icon="📅"
           description="Generate a structured daily site action plan with prioritized tasks and safety checks."
           to="daily"
         />
         <CardWithAction
           title="Weather Advisor"
-          icon="\uD83C\uDF24"
+          icon="🌤️"
           description="Weather-aware GO / NO-GO / REVIEW advisories for construction activities."
           to="weather"
         />
         <CardWithAction
           title="Knowledge Base"
-          icon="\uD83D\uDCDA"
+          icon="📚"
           description="Reference information on construction materials, building practices, terminology, and safety procedures."
           to="knowledgebase"
         />
         <CardWithAction
           title="Construction Chatbot"
-          icon="\uD83D\uDCAC"
+          icon="💬"
           description="Conversational AI assistant for construction questions with session history."
           to="chatbot"
         />
@@ -126,10 +130,13 @@ function CardWithAction({ title, icon, description, to }) {
     <div className="card">
       <div className="card-header">
         <h3 style={{ display: "flex", alignItems: "center", gap: 8, margin: 0 }}>
-          {icon} {title}
+          <span>{icon}</span>
+          {title}
         </h3>
       </div>
-      <p style={{ fontSize: 13, color: "#6b7280", marginBottom: 16 }}>{description}</p>
+      <p style={{ fontSize: 13, color: "#6b7280", marginBottom: 16 }}>
+        {description}
+      </p>
       <button
         className="btn btn-outline btn-sm"
         onClick={() => (window.location.hash = "#/" + to)}
